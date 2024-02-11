@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PopX</title>
+    <link rel="stylesheet" href="ProfileStyle.css" />
+  </head>
+  <body>
+    <div class="profile">
+      <section class="header">Account Settings</section>
+      <section class="profileInfo">
+        <img
+          src="./Assets/profileIcon.jfif"
+          alt="profile image"
+          onclick="setProfile()"
+          class="profileFile"
+          id="userProfile"
+        />
+        <div class="setProfile">
+          <img
+            src="./Assets/setProfile.png"
+            alt="profile image"
+            onclick="setProfile()"
+            class="profilefile"
+          />
+        </div>
+        <div class="info">
+          <span class="userName">Marry</span>
+          <span class="userEmail">Marry@gmail.com</span>
+        </div>
+      </section>
+      <section class="about">
+        Lorem Ipsum Dolor Sit Amet, Consetetur Sadipscing Elitr, Sed Diam Nonumy
+        Eirmod Tempor Invidunt Ut Labore Et Dolore Magna Aliquyam Erat, Sed Diam
+      </section>
+    </div>
+    <script type="text/javascript">
+      function setProfile() {
+        const file = document.createElement("input");
+        file.type = 'file';
+        file.name = 'file';
+        const img = document.getElementById("userProfile");
+        file.click();
+        file.addEventListener("change", (e) => {
+          const fr = new FileReader();
+          fr.addEventListener('load',()=>{
+          let filePath = fr.result;
+          img.src = filePath;
+          });
+          fr.readAsDataURL(e.target.files[0]);
+        });
+      }
+    </script>
+  </body>
+</html>

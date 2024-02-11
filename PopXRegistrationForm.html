@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PopX</title>
+    <link rel="stylesheet" href="PopXRegistrationFormStyle.css" />
+  </head>
+  <body>
+    <div class="formWrapper">
+      <h1>Create your PopX account</h1>
+      <form id="RegistrationForm">
+        <div class="userName">
+          <input
+            type="text"
+            name="fullName"
+            autocomplete="off"
+            placeholder="Please enter your name"
+            id="name"
+            required
+          />
+          <label for="name" class="name"
+            >Full Name <span class="required">*</span></label
+          >
+        </div>
+        <div class="userNumber">
+          <input
+            type="tel"
+            name="Phone"
+            autocomplete="off"
+            placeholder="Your contact number"
+            id="number"
+            required
+          />
+          <label for="number" class="number"
+            >Phone Number<span class="required">*</span></label
+          >
+        </div>
+        <div class="userEmail">
+          <input
+            type="email"
+            name="email"
+            autocomplete="off"
+            placeholder="Your email address"
+            id="email"
+            required
+          />
+          <label for="email" class="email"
+            >Email Address<span class="required">*</span></label
+          >
+        </div>
+        <div class="userPassword">
+          <input
+            type="password"
+            name="password"
+            autocomplete="off"
+            placeholder="Enter your password"
+            id="password"
+            required
+          />
+          <label for="password" class="password"
+            >Password<span class="required">*</span></label
+          >
+        </div>
+        <div class="userCompany">
+          <input
+            type="text"
+            name="company"
+            autocomplete="off"
+            placeholder="Your company name"
+            id="company"
+            required
+          />
+          <label for="company" class="company"
+            >Company Name<span class="required">*</span></label
+          >
+        </div>
+        <div class="userAgencyCheck">
+          <span> Are you an agency? </span>
+          <div class="agencyCheck">
+            <input type="radio" name="agency" id="agencyApplicable" required />
+            <label for="agencyApplicable">Yes</label>
+            <input
+              type="radio"
+              name="agency"
+              id="agencyNotApplicable"
+              required
+            />
+            <label for="agencyNotApplicable">No</label>
+          </div>
+        </div>
+        <button type="submit" class="newUserbtn" id="newUserBtn">
+          Create Account
+        </button>
+      </form>
+      <div id="message"></div>
+    </div>
+    <script type="text/javascript">
+      document
+        .getElementById("RegistrationForm")
+        .addEventListener("submit", (e) => {
+          e.preventDefault();
+          const userName = document.getElementById("name").value;
+          const userNumber = document.getElementById("number").value;
+          const userEmail = document.getElementById("email").value;
+          const userPasssword = document.getElementById("password").value;
+          const userCompany = document.getElementById("company").value;
+          const userAgencyCheck = document.getElementById("agencyApplicable");
+          let agency = userAgencyCheck.checked ? "yes" : "no";
+          const userAccount = {
+            name: userName,
+            number: userNumber,
+            email: userEmail,
+            password: userPasssword,
+            company: userCompany,
+            agency: agency,
+          };
+          user(userAccount);
+        });
+      function user(userAccount) {
+        const storedFormData =
+          JSON.parse(localStorage.getItem("userAccount")) || [];
+        storedFormData.push(userAccount);
+        localStorage.setItem("userAccount", JSON.stringify(storedFormData));
+        userMessage();
+      }
+      function userMessage() {
+        const toastMsg = document.getElementById("message");
+        const formWrapper = document.querySelector(".formWrapper");
+        const form = document.getElementById('RegistrationForm');
+        if (localStorage.getItem("userAccount").length > 0) {
+          toastMsg.classList.add("show");
+          formWrapper.classList.add("changeBackground");
+          let user = JSON.parse(localStorage.getItem("userAccount"));
+          let userName = user[user.length - 1].name;
+          console.log(userName);
+          toastMsg.innerHTML = "Welcome to PopX " + userName + " !";
+          formWrapper.addEventListener("click", () => {
+            toastMsg.classList.remove("show");
+            formWrapper.classList.remove("changeBackground");
+            form.reset();
+            window.location.href = 'Login.html';
+          });
+        } else {
+          toastMsg.classList.remove("show");
+          formWrapper.classList.remove("changeBackground");
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PopX</title>
+    <link rel="stylesheet" href="LoginStyle.css" />
+  </head>
+  <body>
+    <div class="login">
+      <form id="loginForm">
+        <h1>Signin to your PopX account</h1>
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+        <div class="userEmail">
+          <input
+            type="email"
+            placeholder="Enter email address"
+            name="email"
+            id="email"
+            required
+          />
+          <label for="email">Email Address</label>
+        </div>
+        <div class="userPassword">
+          <input
+            type="password"
+            placeholder="Enter password"
+            name="password"
+            id="password"
+            required
+          />
+          <label for="password">Password</label>
+        </div>
+        <button type="submit" id="loginBtn">Login</button>
+      </form>
+    </div>
+    <script type="text/javascript">
+      const userVerify = JSON.parse(localStorage.getItem("userAccount"));
+      const [user] = userVerify;
+      const { name, number, email, password, company, agency } = user;
+      // console.log(name);
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const emailInput = document.getElementById("email").value;
+        const passwordInput = document.getElementById("password").value;
+        const userInput = {
+          email: emailInput,
+          password: passwordInput,
+        };
+        if (emailInput === email && passwordInput === password) {
+          window.location.href = 'ProfilePage.html';
+        } else {
+          alert("wrong inputs");
+        }
+      });
+    </script>
+  </body>
+</html>
